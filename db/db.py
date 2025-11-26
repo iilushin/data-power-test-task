@@ -51,10 +51,12 @@ def insert_data(data: List[Tuple], rows_cnt: int) -> None:
             conn.commit()
             after = conn.total_changes
             conn.close()
-            logger.info(
-                f"{'Вставка данных в таблицу ' + str(TABLE_NAME) + 'прошла успешно, количество вставленных строк: ' 
-                   + str(after - before) if after - before != 0 else 'Ни одна строка не была вставлена в таблицу'}"
+            msg = (
+                f"Вставка данных в таблицу {TABLE_NAME} прошла успешно, количество вставленных строк: {after - before}"
+                if after - before != 0
+                else f"Ни одна строка не была вставлена в таблицу {TABLE_NAME}"
             )
+            logger.info(msg)
         except sqlite3.OperationalError as e:
             logger.error(f"Ошибка при вставке данных в таблицу {TABLE_NAME}, завершение работы программы: {e}")
             raise SystemExit(1)
