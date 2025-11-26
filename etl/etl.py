@@ -31,7 +31,7 @@ def deduplicate_by_columns(formatted_data: List[Tuple]) -> Tuple[List, List]:
     Функция для дедупликации данных по списку DEDUPLICATE_DATA_BY_COLUMNS из конфига
     """
 
-    logger.info(f"Будет произведено дедуплицирование по следующим полям: {", ".join(DEDUPLICATE_DATA_BY_COLUMNS)}")
+    logger.info(f"Будет произведено дедуплицирование по следующим полям: {', '.join(DEDUPLICATE_DATA_BY_COLUMNS)}")
 
     # Получение существующих колонок в таблице
     result_data = get_data(get_type="dedup_cols")
