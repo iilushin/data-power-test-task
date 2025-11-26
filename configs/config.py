@@ -6,6 +6,7 @@ import os
 # Параметры запуска
 WRITE_LOGS_INTO_FILE = True # Нужно ли писать логи в файл
 CREATE_MISSING_DIRS = True # Нужно ли создавать недостающие для работы программы директории автоматически
+SAVE_TABLE_AFTER_RUN = True # Нужно ли выгружать таблицу в формате csv после запуска программы
 
 # Логирование
 LOGGING_CONFIG_PATH = "configs/logging.yaml" # Конфиг логов

@@ -4,9 +4,10 @@
 
 import json
 import logging
+import pandas as pd
 from typing import List, Dict, Tuple
 
-from configs.config import INPUT_FILE_NAME, DEDUPLICATE_DATA_BY_COLUMNS, INIT_TABLE_COLUMNS
+from configs.config import INPUT_FILE_NAME, DEDUPLICATE_DATA_BY_COLUMNS, INIT_TABLE_COLUMNS, OUTPUT_FILE_PATH
 from db.db import get_data
 
 logger = logging.getLogger(__name__)
@@ -77,4 +78,10 @@ def format_and_deduplicate_data(json_data: List[Dict]) -> Tuple[List[Tuple], int
         return [tuple(d.values()) for d in unique_rows], len(unique_rows)
 
     return [tuple(d.values()) for d in result_list], None
+
+def extract_data(data_from_table: List[Tuple]) -> None:
+    logger.info("Включена выгрузка таблицы в csv файл")
+    df = pd.DataFrame(data_from_table, columns=INIT_TABLE_COLUMNS.keys())
+    df.to_csv(OUTPUT_FILE_PATH, index=False)
+    logger.info(f"Таблица выгружена в {OUTPUT_FILE_PATH}")
 

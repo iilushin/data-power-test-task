@@ -1,7 +1,7 @@
 import logging
 from configs.config import *
-from db.db import init_db, insert_data
-from etl.etl import read_input_data, format_and_deduplicate_data
+from db.db import init_db, insert_data, get_data
+from etl.etl import read_input_data, format_and_deduplicate_data, extract_data
 from logger.logger import setup_logging
 from utils.validator import validate_paths, PathValidationError, validate_config
 
@@ -31,5 +31,8 @@ if __name__ == "__main__":
         formatted_data, rows_cnt = format_and_deduplicate_data(json_data)
         # Запись данных в таблицу
         insert_data(formatted_data, rows_cnt)
+
+        if SAVE_TABLE_AFTER_RUN:
+            extract_data(get_data("all_cols"))
     except Exception as e:
         logger.error(e)
